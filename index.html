@@ -394,7 +394,7 @@
 
     <div class="black-overlay" id="blackOverlay" aria-label="点击开始"></div>
 
-    <audio id="bgm" src="zdstks.mp3" loop preload="auto"></audio>
+    <audio id="bgm" src="zdstks.mp3" preload="auto"></audio>
 
     <script>
         (function() {
@@ -405,6 +405,13 @@
             var overlayClicked = false;
             var musicStarted = false;
             var scrollStarted = false;
+
+            var now = new Date();
+            if (now.getMonth() === 3 && now.getDate() === 1) {
+                jumpBtn.href = 'https://tks124444.github.io/145/';
+            } else {
+                jumpBtn.href = 'https://tks124.github.io/zp/';
+            }
 
             addEventListener('dragstart', function(e) {
                 e.preventDefault();
@@ -480,6 +487,13 @@
                 }, 1500);
             }
 
+            bgm.addEventListener('ended', function() {
+                setTimeout(function() {
+                    var flwAudio = new Audio('flw.mp3');
+                    flwAudio.play().catch(function() {});
+                }, 5000);
+            });
+
             overlay.addEventListener('click', function(e) {
                 if (overlayClicked) return;
                 overlayClicked = true;
@@ -510,7 +524,7 @@
             }, true);
 
             bgm.volume = 1.0;
-            bgm.loop = true;
+            bgm.loop = false;
             bgm.preload = 'auto';
 
             window.addEventListener('dragover', function(e) {
@@ -534,4 +548,4 @@
     </script>
 
 </body>
-</html>
+    </html>
