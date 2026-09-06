@@ -356,7 +356,7 @@
             <div class="divider"></div>
 
             <div class="title">网 站</div>
-            <div class="subtitle">— List of all content creators related to Space Kill 124 —</div>
+            <div class="subtitle">— A Journey Through Starlight —</div>
 
             <div class="divider"></div>
 
@@ -379,15 +379,11 @@
             <div class="name">太空杀124</div>
             <div class="role">音乐提供</div>
             <div class="name-sub">biibii:3493259313679235</div>
-            <div class="role">pvz2高级创作地图</div>
-            <div class="name">太空杀124</div>
-            <div class="role">pvz2高级创作地图源代码提供</div>
-            <div class="name">太空杀124</div>
             <div class="name-sub">所 有 参 与 相 关 制 作 的 工 作 人 员</div>
 
             <div class="divider"></div>
 
-            <div class="footer-text">感 谢 支 持</div>
+            <div class="footer-text">感 谢</div>
             <div class="year">二〇二六年</div>
 
             <div style="height: 200px;"></div>
@@ -398,7 +394,7 @@
 
     <div class="black-overlay" id="blackOverlay" aria-label="点击开始"></div>
 
-    <audio id="bgm" src="zdstks.mp3" loop preload="auto" autoplay></audio>
+    <audio id="bgm" src="zdstks.mp3" loop preload="auto"></audio>
 
     <script>
         (function() {
@@ -458,10 +454,8 @@
             document.addEventListener('touchmove', preventScroll, { passive: false });
             document.addEventListener('scroll', preventScroll, { passive: false });
 
-            function tryPlayMusic() {
-                if (musicStarted) {
-                    return;
-                }
+            function playMusic() {
+                if (musicStarted) return;
                 var playPromise = bgm.play();
                 if (playPromise !== undefined) {
                     playPromise.then(function() {
@@ -486,25 +480,11 @@
                 }, 1500);
             }
 
-            window.addEventListener('load', function() {
-                tryPlayMusic();
-            });
-
-            tryPlayMusic();
-
-            bgm.addEventListener('canplay', function() {
-                if (!musicStarted) {
-                    tryPlayMusic();
-                }
-            });
-
             overlay.addEventListener('click', function(e) {
                 if (overlayClicked) return;
                 overlayClicked = true;
                 overlay.classList.add('fade-out');
-                if (!musicStarted) {
-                    tryPlayMusic();
-                }
+                playMusic();
                 startScrollAfterDelay();
                 e.stopPropagation();
             });
@@ -513,9 +493,7 @@
                 if (overlayClicked) return;
                 overlayClicked = true;
                 overlay.classList.add('fade-out');
-                if (!musicStarted) {
-                    tryPlayMusic();
-                }
+                playMusic();
                 startScrollAfterDelay();
                 e.preventDefault();
                 e.stopPropagation();
@@ -542,17 +520,6 @@
             window.addEventListener('drop', function(e) {
                 e.preventDefault();
                 return false;
-            });
-
-            document.addEventListener('visibilitychange', function() {
-                if (document.visibilityState === 'visible') {
-                    if (!musicStarted && !bgm.paused) {
-                        musicStarted = true;
-                    }
-                    if (bgm.paused && overlayClicked && !musicStarted) {
-                        tryPlayMusic();
-                    }
-                }
             });
 
             jumpBtn.addEventListener('click', function(e) {
