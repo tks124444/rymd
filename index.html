@@ -350,47 +350,47 @@
         <div class="credits-content" id="creditsContent">
 
             <div class="credits-cover-image-container">
-                <img src="tks.png" alt="开场封面图片" class="credits-cover-image" draggable="false">
+                <img src="tks.png" alt="开场封面图片" class="credits-cover-image" draggable="false" data-lang-alt="coverAlt">
             </div>
 
             <div class="divider"></div>
 
-            <div class="title">网 站</div>
+            <div class="title" data-lang="title">网 站</div>
             <div class="subtitle">— A Journey Through Starlight —</div>
 
             <div class="divider"></div>
 
-            <div class="role">主要</div>
-            <div class="name">太空杀124</div>
+            <div class="role" data-lang="roleMain">主要</div>
+            <div class="name" data-lang="nameMain">太空杀124</div>
 
-            <div class="role">帮助</div>
+            <div class="role" data-lang="roleHelp">帮助</div>
             <div class="name">DeepSeek</div>
-            <div class="role">帮助</div>
+            <div class="role" data-lang="roleHelp">帮助</div>
             <div class="name">千问</div>
             <div class="name-sub"></div>
 
-            <div class="role">软件制作</div>
-            <div class="name">太空杀124</div>
-            <div class="name-sub">更新 &middot; 太空杀124</div>
+            <div class="role" data-lang="roleSoftware">软件制作</div>
+            <div class="name" data-lang="nameMain">太空杀124</div>
+            <div class="name-sub" data-lang="subUpdate">更新 &middot; 太空杀124</div>
 
-            <div class="role">游戏相关改版制作</div>
-            <div class="name">太空杀124</div>
-            <div class="role">音乐提供</div>
-            <div class="name">太空杀124</div>
-            <div class="role">音乐提供</div>
+            <div class="role" data-lang="roleGameMod">游戏相关改版制作</div>
+            <div class="name" data-lang="nameMain">太空杀124</div>
+            <div class="role" data-lang="roleMusic">音乐提供</div>
+            <div class="name" data-lang="nameMain">太空杀124</div>
+            <div class="role" data-lang="roleMusic">音乐提供</div>
             <div class="name-sub">biibii:3493259313679235</div>
-            <div class="name-sub">所 有 参 与 相 关 制 作 的 工 作 人 员</div>
+            <div class="name-sub" data-lang="allStaff">所 有 参 与 相 关 制 作 的 工 作 人 员</div>
 
             <div class="divider"></div>
 
-            <div class="footer-text">感 谢</div>
-            <div class="year">二〇二六年</div>
+            <div class="footer-text" data-lang="thanks">感 谢</div>
+            <div class="year" data-lang="year">二〇二六年</div>
 
             <div style="height: 200px;"></div>
         </div>
     </div>
 
-    <a href="https://tks124444.github.io/cd/" target="_self" class="jump-button" id="jumpBtn">神秘彩蛋</a>
+    <a href="https://tks124444.github.io/cd/" target="_self" class="jump-button" id="jumpBtn" data-lang="jumpBtn">神秘彩蛋</a>
 
     <div class="black-overlay" id="blackOverlay" aria-label="点击开始"></div>
 
@@ -398,6 +398,68 @@
 
     <script>
         (function() {
+            // ============ 语言支持（只读，不提供切换） ============
+            const LANG_KEY = "sk124_lang";
+            const currentLang = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'zh';
+
+            const translations = {
+                zh: {
+                    pageTitle: "太空杀124所有相关内容制作者名单",
+                    coverAlt: "开场封面图片",
+                    title: "网 站",
+                    roleMain: "主要",
+                    nameMain: "太空杀124",
+                    roleHelp: "帮助",
+                    roleSoftware: "软件制作",
+                    subUpdate: "更新 · 太空杀124",
+                    roleGameMod: "游戏相关改版制作",
+                    roleMusic: "音乐提供",
+                    allStaff: "所 有 参 与 相 关 制 作 的 工 作 人 员",
+                    thanks: "感 谢",
+                    year: "二〇二六年",
+                    jumpBtn: "神秘彩蛋"
+                },
+                en: {
+                    pageTitle: "SpaceKill124 Credits",
+                    coverAlt: "Opening cover image",
+                    title: "WEBSITE",
+                    roleMain: "Main",
+                    nameMain: "SpaceKill124",
+                    roleHelp: "Help",
+                    roleSoftware: "Software",
+                    subUpdate: "Update · SpaceKill124",
+                    roleGameMod: "Game Mod",
+                    roleMusic: "Music",
+                    allStaff: "All Related Staff",
+                    thanks: "Thanks",
+                    year: "2026",
+                    jumpBtn: "Mystery Easter Egg"
+                }
+            };
+
+            function applyLanguage() {
+                const t = translations[currentLang];
+                document.title = t.pageTitle;
+                document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    const key = el.getAttribute('data-lang');
+                    if (t[key] !== undefined) {
+                        el.textContent = t[key];
+                    }
+                });
+
+                document.querySelectorAll('[data-lang-alt]').forEach(el => {
+                    const key = el.getAttribute('data-lang-alt');
+                    if (t[key] !== undefined) {
+                        el.setAttribute('alt', t[key]);
+                    }
+                });
+            }
+
+            applyLanguage();
+            // ============ 语言支持结束 ============
+
             var overlay = document.getElementById('blackOverlay');
             var bgm = document.getElementById('bgm');
             var creditsContent = document.getElementById('creditsContent');
@@ -548,4 +610,4 @@
     </script>
 
 </body>
-    </html>
+</html>
