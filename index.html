@@ -398,7 +398,6 @@
 
     <script>
         (function() {
-            // ============ 语言支持（只读，不提供切换） ============
             const LANG_KEY = "sk124_lang";
             const currentLang = localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'zh';
 
@@ -458,7 +457,6 @@
             }
 
             applyLanguage();
-            // ============ 语言支持结束 ============
 
             var overlay = document.getElementById('blackOverlay');
             var bgm = document.getElementById('bgm');
